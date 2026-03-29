@@ -1,0 +1,4 @@
+{
+    "command": "./gradlew bootRun",
+    "working_directory": "/home/kavia/workspace/code-generation/elegant-dance-studio-website-242614-242624/nextjs_backend_admin"
+}
