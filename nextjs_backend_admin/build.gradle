@@ -1,7 +1,14 @@
 plugins {
 	id 'java'
+	id 'checkstyle'
 	id 'org.springframework.boot' version '3.4.8'
 	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+checkstyle {
+	toolVersion = '10.12.5'
+	// Keep CI simple: we will provide a minimal config; teams can tighten rules later.
+	configFile = file("$rootDir/config/checkstyle/checkstyle.xml")
 }
 
 group = 'com.example'
@@ -19,11 +26,21 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+
+	// Supabase access via REST:
+	// - PostgREST: DB operations
+	// - Storage API: file upload/delete
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+	// JSON parsing & JWT verification
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	implementation 'com.auth0:java-jwt:4.4.0'
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'com.h2database:h2'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
